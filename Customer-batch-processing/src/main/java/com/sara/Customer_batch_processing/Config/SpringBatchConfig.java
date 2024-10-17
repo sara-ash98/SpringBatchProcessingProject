@@ -86,7 +86,6 @@ public class SpringBatchConfig {
 				.reader(multiFileReader())
 				.processor(processor())
 				.writer(writer())
-				.taskExecutor(taskExecutor())
 				.build();
 	}
 	@Bean
@@ -94,11 +93,6 @@ public class SpringBatchConfig {
 		return new JobBuilder("importCustomers",jobRepository)
 				.flow(step1(jobRepository,transactionManager)).end().build();
 	}
-	@Bean
-	public TaskExecutor taskExecutor() {
-		SimpleAsyncTaskExecutor asyncTaskExecutor=new SimpleAsyncTaskExecutor();
-		asyncTaskExecutor.setConcurrencyLimit(10);
-		return taskExecutor();
-	}
+	
 	
 }
